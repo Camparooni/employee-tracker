@@ -4,11 +4,11 @@
 
 ## Description
 
-The purpose of this application is to allow users to quickly and easily generate simple logos for their projects, brands or companies in an svg file
+The purpose of this application is to allow business owners to view and manage their departments, roles, and employees within the company to stay organized. 
 
-## Usage
+## Installation
 
-To use this application, clone the project files from [the logo-maker repository](https://github.com/Camparooni/logo-maker) and open the index.js file. Make sure you have node.js downloaded to your computer. In the command line, initiate the program using command `node index.js` and a new file called *logo.svg*  will be generated in your files. You can open this file in the browser to view your newly generated logo!
+To use this application, clone the project files from [the employee-tracker repository](https://github.com/Camparooni/employee-tracker) and open the index.js file. Make sure you have node.js downloaded to your computer and have ran `npm install` to download the necessary npm package dependencies. 
 
 ### Link
 
