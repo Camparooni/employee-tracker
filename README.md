@@ -14,7 +14,7 @@ To use this application, clone the project files from [the logo-maker repository
 
 View a walkthough [here](https://drive.google.com/file/d/1l9PQpTVgfHBhU06B5X8Igm3RK1outq-4/view)
 
-![logo-maker](./image.png)
+![logo-maker](./employeedb.PNG)
 
 
 ## Badges
