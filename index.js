@@ -103,3 +103,122 @@ function viewEmployees() {
     startApp();
   });
 }
+
+function addDepartment() {
+  inquirer
+    .prompt({
+      name: 'departmentName',
+      type: 'input',
+      message: 'Enter the name of the department:',
+    })
+    .then((answer) => {
+      const query = 'INSERT INTO department (name) VALUES (?)';
+      connection.query(query, [answer.departmentName], (err, res) => {
+        if (err) throw err;
+        console.log('Department added!');
+        startApp();
+      });
+    });
+}
+
+function addRole() {
+  inquirer
+    .prompt([
+      {
+        name: 'title',
+        type: 'input',
+        message: 'Enter the title of the role:',
+      },
+      {
+        name: 'salary',
+        type: 'input',
+        message: 'Enter the salary for this role:',
+      },
+      {
+        name: 'departmentId',
+        type: 'input',
+        message: 'Enter the department ID for this role:',
+      },
+    ])
+    .then((answer) => {
+      const query = 'INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)';
+      connection.query(query, [answer.title, answer.salary, answer.departmentId], (err, res) => {
+        if (err) throw err;
+        console.log('Role added!');
+        startApp();
+      });
+    });
+}
+
+function addEmployee() {
+  inquirer
+    .prompt([
+      {
+        name: 'firstName',
+        type: 'input',
+        message: 'Enter the first name of the employee:',
+      },
+      {
+        name: 'lastName',
+        type: 'input',
+        message: 'Enter the last name of the employee:',
+      },
+      {
+        name: 'roleId',
+        type: 'input',
+        message: 'Enter the role ID for this employee:',
+      },
+      {
+        name: 'managerId',
+        type: 'input',
+        message: 'Enter the manager ID for this employee (optional):',
+      },
+    ])
+    .then((answer) => {
+      const query =
+        'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)';
+      connection.query(
+        query,
+        [answer.firstName, answer.lastName, answer.roleId, answer.managerId || null],
+        (err, res) => {
+          if (err) throw err;
+          console.log('Employee added!');
+          startApp();
+        }
+      );
+    });
+}
+
+function updateEmployeeRole() {
+  connection.query('SELECT * FROM employee', (err, employees) => {
+    if (err) throw err;
+
+    const employeeChoices = employees.map((employee) => ({
+      name: `${employee.first_name} ${employee.last_name}`,
+      value: employee.id,
+    }));
+
+    inquirer
+      .prompt([
+        {
+          name: 'employeeId',
+          type: 'list',
+          message: 'Select the employee to update:',
+          choices: employeeChoices,
+        },
+        {
+          name: 'roleId',
+          type: 'input',
+          message: 'Enter the new role ID for this employee:',
+        },
+      ])
+      .then((answer) => {
+        const query = 'UPDATE employee SET role_id = ? WHERE id = ?';
+        connection.query(query, [answer.roleId, answer.employeeId], (err, res) => {
+          if (err) throw err;
+          console.log('Employee role updated!');
+          startApp();
+        });
+      });
+  });
+}
